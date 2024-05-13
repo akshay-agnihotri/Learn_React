@@ -6,8 +6,8 @@ import CoreConcepts from "./components/CoreConcepts.jsx";
 import TabButton from "./components/TabButton.jsx";
 
 function App() {
-  function handleSelect(){
-    console.log("hello");
+  function handleSelect(componentSelected){
+    console.log(componentSelected);
   }
   return (
     <div>
@@ -30,10 +30,10 @@ function App() {
           <section id="examples">
             <h1>Examples</h1>
             <menu>
-              <TabButton onSelect={handleSelect.bind(this)}>Components</TabButton>
-              <TabButton onSelect={handleSelect.bind(this)}>JSX</TabButton>
-              <TabButton onSelect={handleSelect.bind(this)}>Props</TabButton>
-              <TabButton onSelect={handleSelect}>States</TabButton>
+              <TabButton onSelect={()=>handleSelect('Components')}>Components</TabButton>
+              <TabButton onSelect={()=>handleSelect('JSX')}>JSX</TabButton>
+              <TabButton onSelect={()=>handleSelect('Props')}>Props</TabButton>
+              <TabButton onSelect={()=>handleSelect('States')}>States</TabButton>
             </menu>
           </section>
         </div>
