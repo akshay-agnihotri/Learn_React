@@ -1,5 +1,5 @@
 import TabButton  from "./TabButton.jsx";
-import { EXAMPLES } from "../data.js";
+import { EXAMPLES} from "../data.js";
 import { useState } from "react";
 
 export default function Examples() {
@@ -14,25 +14,25 @@ export default function Examples() {
         <menu>
           <TabButton
             isSelected={selectedTopic === "components"}
-            onSelect={() => handleSelect("components")}
+            onClick={() => handleSelect("components")}
           >
             components
           </TabButton>
           <TabButton
             isSelected={selectedTopic === "jsx"}
-            onSelect={() => handleSelect("jsx")}
+            onClick={() => handleSelect("jsx")}
           >
             jsx
           </TabButton>
           <TabButton
             isSelected={selectedTopic === "props"}
-            onSelect={() => handleSelect("props")}
+            onClick={() => handleSelect("props")}
           >
             props
           </TabButton>
           <TabButton
             isSelected={selectedTopic === "state"}
-            onSelect={() => handleSelect("state")}
+            onClick={() => handleSelect("state")}
           >
             state
           </TabButton>
