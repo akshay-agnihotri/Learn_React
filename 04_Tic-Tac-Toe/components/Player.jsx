@@ -5,14 +5,23 @@ Player.propTypes = {
   initialName: PropTypes.any.isRequired,
   symbol: PropTypes.any.isRequired,
   isActive: PropTypes.any.isRequired,
+  onChangePlayer: PropTypes.any.isRequired,
 };
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangePlayer,
+}) {
   const [isEditing, setisEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
 
   function handleEditClick() {
     setisEditing((editing) => !editing);
+    if (isEditing) {
+      onChangePlayer(symbol, playerName);
+    }
   }
 
   function updatePlayerName(event) {
@@ -20,7 +29,7 @@ export default function Player({ initialName, symbol, isActive }) {
   }
 
   return (
-    <li className={isActive ? 'active':undefined}>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {isEditing && (
           <input
