@@ -5,6 +5,7 @@ import { useState } from "react";
 import Log from "../components/Log.jsx";
 import { WINNING_COMBINATIONS } from "../WINNING_COMBINATIONS.JS";
 import GameOver from "../components/GameOver.jsx";
+import Header from "../components/Header.jsx";
 
 let winner = null;
 
@@ -90,6 +91,7 @@ function App() {
 
   return (
     <main>
+      <Header></Header>
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player
