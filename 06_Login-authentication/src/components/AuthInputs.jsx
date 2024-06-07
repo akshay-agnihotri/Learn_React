@@ -23,7 +23,8 @@ export default function AuthInputs() {
   return (
     <div id="auth-inputs">
       <div className="controls">
-        <p>
+        {/* paragraph is a scoped class cannot be accessed here  */} 
+        <p className='paragraph'>
           <label>Email</label>
           <input
             type="email"
@@ -31,7 +32,7 @@ export default function AuthInputs() {
             onChange={(event) => handleInputChange('email', event.target.value)}
           />
         </p>
-        <p>
+        <p className='paragraph'>
           <label>Password</label>
           <input
             type="password"
