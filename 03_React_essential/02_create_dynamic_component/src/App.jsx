@@ -1,8 +1,8 @@
 // import componentImage from "./assets/components.png";
-import { CORE_CONCEPTS , EXAMPLES } from "./data.js";
+import { CORE_CONCEPTS, EXAMPLES } from "./data.js";
 import Header from "./components/Header/Header.jsx";
 import CoreConcepts from "./components/CoreConcepts.jsx";
-import Examples  from "./components/Examples.jsx";
+import Examples from "./components/Examples.jsx";
 
 function App() {
   return (
@@ -12,7 +12,9 @@ function App() {
         <div id="core-concepts">
           <h2>Core-Concepts</h2>
           <ul>
-            { CORE_CONCEPTS.map( (CORE_CONCEPT)=> <CoreConcepts {...CORE_CONCEPT} /> ) }
+            {CORE_CONCEPTS.map((CORE_CONCEPT) => (
+              <CoreConcepts {...CORE_CONCEPT} />
+            ))}
           </ul>
           <Examples />
         </div>
