@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
+import {DUMMY_PRODUCTS} from "../dummy-products";
 
-import Header from "./components/Header.jsx";
-import Shop from "./components/Shop.jsx";
-import { DUMMY_PRODUCTS } from "./dummy-products.js";
-import Product from "./components/Product.jsx";
-import CartContextProvider from "./Contexts/CartContext.jsx";
+export const CartContext = createContext({
+  items: [],
+  handleAddItemToCart: () => {},
+  handleUpdateCartItemQuantity: () => {},
+});
 
-function App() {
+export default function CartContextProvider({ children }) {
   const [shoppingCart, setShoppingCart] = useState({
     items: [],
   });
@@ -68,17 +69,14 @@ function App() {
   }
 
   return (
-    <CartContextProvider>
-      <Header />
-      <Shop>
-        {DUMMY_PRODUCTS.map((product) => (
-          <li key={product.id}>
-            <Product {...product} onAddToCart={handleAddItemToCart} />
-          </li>
-        ))}
-      </Shop>
-    </CartContextProvider>
+    <CartContext.Provider
+      value={{
+        shoppingCart,
+        handleAddItemToCart,
+        handleUpdateCartItemQuantity,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
   );
 }
-
-export default App;
