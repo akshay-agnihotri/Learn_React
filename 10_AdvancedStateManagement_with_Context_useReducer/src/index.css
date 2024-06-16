@@ -311,7 +311,12 @@ h1 {
   #shop {
     width: 100%;
   }
-
+  #modal h2{
+    font-size: 1.15rem;
+  }
+  #modal p{
+    font-size: 1rem;
+  }
 }
 
 @media only screen and (max-width: 549.5px) {
