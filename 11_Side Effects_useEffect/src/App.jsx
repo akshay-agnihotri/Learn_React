@@ -7,10 +7,16 @@ import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "./assets/logo.png";
 import { sortPlacesByDistance } from "./loc.js";
 
+const storedIds = JSON.parse(localStorage.getItem("selectedPlacesIds")) || [];
+const storedPlaces = storedIds.map((id) =>
+  AVAILABLE_PLACES.find((place) => place.id === id)
+);
+
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
-  const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [availablePlaces, setAvailablePlaces] = useState([]);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -20,7 +26,7 @@ function App() {
         pos.coords.longitude
       );
 
-      setPickedPlaces(sortedPlacesByDistance);
+      setAvailablePlaces(sortedPlacesByDistance);
     });
   }, []);
 
@@ -41,6 +47,19 @@ function App() {
       const place = AVAILABLE_PLACES.find((place) => place.id === id);
       return [place, ...prevPickedPlaces];
     });
+
+    let selectedPlacesIds = localStorage.getItem("selectedPlacesIds");
+
+    selectedPlacesIds = selectedPlacesIds ? JSON.parse(selectedPlacesIds) : [];
+
+    if (!selectedPlacesIds.some((selectedId) => selectedId === id)) {
+      selectedPlacesIds.push(id);
+    }
+
+    localStorage.setItem(
+      "selectedPlacesIds",
+      JSON.stringify(selectedPlacesIds)
+    );
   }
 
   function handleRemovePlace() {
@@ -48,6 +67,20 @@ function App() {
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
     modal.current.close();
+
+    let selectedPlacesIds = localStorage.getItem("selectedPlacesIds");
+
+    selectedPlacesIds = selectedPlacesIds ? JSON.parse(selectedPlacesIds) : [];
+    console.log(selectedPlace.current);
+
+    localStorage.setItem(
+      "selectedPlacesIds",
+      JSON.stringify(
+        selectedPlacesIds.filter(
+          (selectedPlaceId) => selectedPlaceId !== selectedPlace.current
+        )
+      )
+    );
   }
 
   return (
@@ -76,7 +109,7 @@ function App() {
         />
         <Places
           title="Available Places"
-          places={AVAILABLE_PLACES}
+          places={availablePlaces}
           onSelectPlace={handleSelectPlace}
         />
       </main>
