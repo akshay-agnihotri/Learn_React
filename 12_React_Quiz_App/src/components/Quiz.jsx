@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 import QUESTIONS from "../questions.js";
-import quizCompleteImg from "../assets/quiz-complete.png";
 import QuestionTimer from "./QuestionTimer.jsx";
 import Question from "./Question.jsx";
+import Summary from "./Summary.jsx";
 
 function Quiz() {
   const [answerState, setAnswerState] = useState({
@@ -19,15 +19,8 @@ function Quiz() {
 
   let activeQuestionIndex = userAnswers.length;
   if (activeQuestionIndex === QUESTIONS.length) {
-    return (
-      <div id="summary">
-        <img src={quizCompleteImg} alt="" />
-        <h2>Quiz Completed</h2>
-      </div>
-    );
+    return <Summary userAnswer={userAnswers} />;
   }
-
-
 
   return (
     <div id="quiz">
