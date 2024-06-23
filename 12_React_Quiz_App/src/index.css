@@ -296,8 +296,9 @@ header h1 {
 
 #summary-stats {
   display: flex;
-  gap: 3rem;
-  width: 60%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 80%;
   margin: 2rem auto;
   padding-bottom: 2rem;
   border-bottom: 2px solid #594276;
@@ -306,6 +307,7 @@ header h1 {
 #summary-stats p {
   flex: 1;
   display: flex;
+  align-items: center;
   flex-direction: column;
   margin: 0;
 }
