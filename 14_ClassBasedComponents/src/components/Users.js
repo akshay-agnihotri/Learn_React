@@ -4,12 +4,6 @@ import { Component } from "react";
 
 import classes from "./Users.module.css";
 
-const DUMMY_USERS = [
-  { id: "u1", name: "Max" },
-  { id: "u2", name: "Manuel" },
-  { id: "u3", name: "Julie" },
-];
-
 class Users extends Component {
   constructor() {
     super();
@@ -18,7 +12,7 @@ class Users extends Component {
 
   toggleUsersHandler() {
     // this.state.showUsers = false;    // wrong method
-    // this.setState({ showUsers: false }); //this object passing here 
+    // this.setState({ showUsers: false }); //this object passing here
     // will merge with prev object
     this.setState((curState) => {
       return { showUsers: !curState.showUsers };
@@ -28,7 +22,7 @@ class Users extends Component {
   render() {
     const usersList = (
       <ul>
-        {DUMMY_USERS.map((user) => (
+        {this.props.users.map((user) => (
           <User key={user.id} name={user.name} />
         ))}
       </ul>
@@ -45,7 +39,6 @@ class Users extends Component {
   }
 }
 export default Users;
-
 
 // const Users = () => {
 //   const [showUsers, setShowUsers] = useState(true);
@@ -71,5 +64,3 @@ export default Users;
 //     </div>
 //   );
 // };
-
-
