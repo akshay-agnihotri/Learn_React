@@ -20,16 +20,15 @@ function App() {
   const [putDataError, setPutDataError] = useState(null);
 
   useEffect(() => {
-    setIsFetching(true);
     async function fetchUserPlaceData() {
+      setIsFetching(true);
       try {
         const places = await fetchUserPlaces();
         setUserPlaces(places);
-        setIsFetching(false);
       } catch (error) {
         setError({ msg: error.message });
-        setIsFetching(false);
       }
+      setIsFetching(false);
     }
 
     fetchUserPlaceData();
