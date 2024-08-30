@@ -1,42 +1,44 @@
 import { useEffect, useState } from "react";
 import Places from "./Places.jsx";
-import Error from "./Error.jsx";
+import ErrorPage from "./ErrorPage.jsx";
 import { sortPlacesByDistance } from "../loc.js";
+import { resData } from "../../resData.js";
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [availablePlaces, setAvailablePlaces] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false); // to show some fallback text we use isLoading useState() .
+  const [error, setError] = useState(); // if any error occured then we will use this useState() .
 
   useEffect(() => {
     async function fetchPlaces() {
       setIsLoading(true);
+      
       try {
-        const response = await fetch("http://localhost:3000/places");
-        const resData = await response.json();
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch Places");
-        }
-        navigator.geolocation.getCurrentPosition((position) => {
-          const sortedPlaces = sortPlacesByDistance(
-            resData.places,
-            position.coords.latitude,
-            position.coords.longitude
-          );
-          setAvailablePlaces(sortedPlaces);
-        });
+        const responseData = await resData();
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const sortedPlaces = sortPlacesByDistance(
+              responseData.places,
+              position.coords.latitude,
+              position.coords.longitude
+            );
+            setAvailablePlaces(sortedPlaces);
+          },
+          () => {
+            throw new Error("please provide your current location...")
+          }
+        );
       } catch (error) {
         setError({ message: error.message });
-      } finally {
-        setIsLoading(false);
       }
+
+      setIsLoading(false);
     }
     fetchPlaces();
-  }, []);  
+  }, []);
 
   if (error) {
-    return <Error title="Unable to fetch Places !" message={error.message} />;
+    return <ErrorPage title="Unable to fetch Places !" message={error.message} />;
   }
 
   return (
