@@ -31,10 +31,9 @@ const Modal = forwardRef(function Modal(_props, modalRef) {
           <li className="cart-item">
             <p>xyz - 1 x price</p>
             <div className="cart-item-actions">
-              <button type="button">+</button>1<button type="button">-</button>
+              <button type="button">-</button>1<button type="button">+</button>
             </div>
           </li>
-          {/* Add more cart items here as needed */}
         </ul>
         <div className="cart-total">Total amount</div>
         <div className="modal-actions">
@@ -45,7 +44,7 @@ const Modal = forwardRef(function Modal(_props, modalRef) {
         </div>
       </form>
     </dialog>,
-    document.getElementById('root') // Create the portal inside #root
+    document.getElementById("modal") // Create the portal inside #root
   );
 });
 
