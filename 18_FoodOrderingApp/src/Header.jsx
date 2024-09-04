@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import logo from "./assets/logo.jpg";
 import Modal from "./Modal";
+import Button from "./UI/Button";
 
 function Header() {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,9 +20,9 @@ function Header() {
           <img src={logo} alt="A restaurant" />
           <h1>reactfood</h1>
         </div>
-        <button onClick={handleShowModal} className="text-button">
+        <Button onClick={handleShowModal} classes="text-button">
           Cart
-        </button>
+        </Button>
       </header>
     </>
   );

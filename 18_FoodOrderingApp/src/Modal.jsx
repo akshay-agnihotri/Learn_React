@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { createPortal } from "react-dom";
+import Button from "./UI/Button";
 
 // Forward ref for the Modal component
 const Modal = forwardRef(function Modal(_props, modalRef) {
@@ -31,7 +32,7 @@ const Modal = forwardRef(function Modal(_props, modalRef) {
           <li className="cart-item">
             <p>xyz - 1 x price</p>
             <div className="cart-item-actions">
-              <button type="button">-</button>1<button type="button">+</button>
+              <Button type="button">-</Button>1<Button type="button">+</Button>
             </div>
           </li>
         </ul>

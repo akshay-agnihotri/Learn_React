@@ -1,7 +1,9 @@
 // import React from "react";
 import PropTypes from "prop-types";
+import { currencyFormatter } from "./util/formatting";
+import Button from "./UI/Button";
 
-function Meals({ availableMeals }) {
+function Meals({ availableMeals, handleSelectMeal }) {
   return (
     <ul id="meals">
       {availableMeals.map((meal) => (
@@ -10,11 +12,18 @@ function Meals({ availableMeals }) {
             <img src={`../backend/public/${meal.image}`} alt={meal.name} />
             <div>
               <h3>{meal.name}</h3>
-              <div className="meal-item-price">${meal.price}</div>
+              <div className="meal-item-price">
+                {currencyFormatter.format(meal.price)}
+              </div>
               <div className="meal-item-description">{meal.description}</div>
             </div>
             <p className="meal-item-actions">
-              <button className="button">Addto Cart</button>
+              <Button
+                classes="button"
+                onClick={() => handleSelectMeal(meal.id)}
+              >
+                Addto Cart
+              </Button>
             </p>
           </article>
         </li>
@@ -25,6 +34,7 @@ function Meals({ availableMeals }) {
 
 Meals.propTypes = {
   availableMeals: PropTypes.array.isRequired,
+  handleSelectMeal: PropTypes.func.isRequired,
 };
 
 export default Meals;
