@@ -1,10 +1,15 @@
 import PropTypes from "prop-types";
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useContext, useImperativeHandle, useRef } from "react";
 import { createPortal } from "react-dom";
 import Button from "./UI/Button";
+import { currencyFormatter } from "./util/formatting";
+import { CartContext } from "../store/CartContext";
 
 // Forward ref for the Modal component
 const Modal = forwardRef(function Modal(_props, modalRef) {
+  const { selectedMeals, handleDecreaseQuantity, handleIncreaseQuantity } =
+    useContext(CartContext);
+
   const ref = useRef();
 
   // Use useImperativeHandle to expose functions to the parent component via ref
@@ -23,20 +28,43 @@ const Modal = forwardRef(function Modal(_props, modalRef) {
     []
   );
 
-  // Render modal using createPortal
+  const totalAmount = selectedMeals.reduce(
+    (total, meal) => total + meal.price * meal.quantity,
+    0
+  );
+
   return createPortal(
     <dialog className="modal" ref={ref}>
       <form method="dialog" className="cart">
         <h2>Your Cart</h2>
         <ul>
-          <li className="cart-item">
-            <p>xyz - 1 x price</p>
-            <div className="cart-item-actions">
-              <Button type="button">-</Button>1<Button type="button">+</Button>
-            </div>
-          </li>
+          {selectedMeals.map((meal) => (
+            <li className="cart-item" key={meal.id}>
+              <p>
+                {meal.name} - {meal.quantity} x{" "}
+                {currencyFormatter.format(meal.price)}
+              </p>
+              <div className="cart-item-actions">
+                <Button
+                  type="button"
+                  onClick={() => handleDecreaseQuantity(meal.id)}
+                >
+                  -
+                </Button>
+                {meal.quantity}
+                <Button
+                  type="button"
+                  onClick={() => handleIncreaseQuantity(meal.id)}
+                >
+                  +
+                </Button>
+              </div>
+            </li>
+          ))}
         </ul>
-        <div className="cart-total">Total amount</div>
+        <div className="cart-total">
+          TotalAmount: {currencyFormatter.format(totalAmount)}
+        </div>
         <div className="modal-actions">
           <button className="text-button">Close</button>
           <button className="button" type="button">
@@ -45,11 +73,12 @@ const Modal = forwardRef(function Modal(_props, modalRef) {
         </div>
       </form>
     </dialog>,
-    document.getElementById("modal") // Create the portal inside #root
+    document.getElementById("modal")
   );
 });
 
 Modal.propTypes = {
+  // selectedMeals: PropTypes.array.isRequired,
   modalRef: PropTypes.any,
 };
 

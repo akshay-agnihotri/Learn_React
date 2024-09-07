@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Meals from "./Meals";
+import { CartContextProvider } from "../store/CartContext";
 
 function App() {
-  const [meals, setMeals] = useState([]);
+  const [availableMeals, setAvailableMeals] = useState([]);
+  // const [selectedMeals, setSelectedMeals] = useState([]);
   // const [isFetching, setIsFetching] = useState();
   // const [error, setError] = useState(false);
 
@@ -18,8 +20,8 @@ function App() {
           throw new Error("Failed to fetch meals");
         }
         const data = await response.json();
-        setMeals(data);
-        console.log(data);
+        setAvailableMeals(data);
+        // console.log(data);
       } catch (error) {
         console.log(error);
 
@@ -32,10 +34,32 @@ function App() {
     fetchAvailableMeals();
   }, []);
 
+  // function handleIncreaseQuantity(id) {
+  //   setSelectedMeals((prvSelectedMeals) => {
+  //     const updatedMeals = prvSelectedMeals.map((meal) =>
+  //       meal.id === id ? { ...meal, quantity: meal.quantity + 1 } : { ...meal }
+  //     );
+  //     return updatedMeals;
+  //   });
+  // }
+
+  // function handleDecreaseQuantity(id) {
+  //   setSelectedMeals((prvSelectedMeals) => {
+  //     const updatedMeals = prvSelectedMeals
+  //       .map((meal) =>
+  //         meal.id === id ? { ...meal, quantity: meal.quantity - 1 } : meal
+  //       )
+  //       .filter((meal) => meal.quantity > 0); // Remove meals with quantity 0
+  //     return updatedMeals;
+  //   });
+  // }
+
   return (
     <>
-      <Header />
-      <Meals availableMeals={meals} />
+      <CartContextProvider>
+        <Header />
+        <Meals availableMeals={availableMeals} />
+      </CartContextProvider>
     </>
   );
 }
