@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 // Initial context
 export const CartContext = createContext({
-  selectedMeals: [],
-  handleIncreaseQuantity: () => {},
-  handleDecreaseQuantity: () => {},
+  selectedMeals: [], // item
+  handleIncreaseQuantity: () => {}, // addItem
+  handleDecreaseQuantity: () => {}, // removeItem
   handleSelectMeal: () => {},
 });
 
