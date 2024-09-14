@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 // Initial context
 export const CartContext = createContext({
   selectedMeals: [], // item
-  handleIncreaseQuantity: () => {}, // addItem
+  // handleIncreaseQuantity: () => {},
   handleDecreaseQuantity: () => {}, // removeItem
-  handleSelectMeal: () => {},
+  handleSelectMeal: () => {},  // addItem
 });
 
 // Reducer function to handle the actions
