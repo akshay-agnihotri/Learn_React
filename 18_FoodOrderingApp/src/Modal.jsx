@@ -7,7 +7,7 @@ import { CartContext } from "../store/CartContext";
 
 // Forward ref for the Modal component
 const Modal = forwardRef(function Modal(_props, modalRef) {
-  const { selectedMeals, handleDecreaseQuantity, handleIncreaseQuantity } =
+  const { selectedMeals, handleDecreaseQuantity, handleSelectMeal } =
     useContext(CartContext);
 
   const ref = useRef();
@@ -52,10 +52,7 @@ const Modal = forwardRef(function Modal(_props, modalRef) {
                   -
                 </Button>
                 {meal.quantity}
-                <Button
-                  type="button"
-                  onClick={() => handleIncreaseQuantity(meal)}
-                >
+                <Button type="button" onClick={() => handleSelectMeal(meal)}>
                   +
                 </Button>
               </div>

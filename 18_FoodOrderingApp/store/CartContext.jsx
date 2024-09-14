@@ -25,11 +25,11 @@ function cartReducer(state, action) {
         return [...state, newMeal];
       }
     }
-    case "INCREASE_QUANTITY": {
-      return state.map((meal) =>
-        meal.id === action.meal.id ? { ...meal, quantity: meal.quantity + 1 } : meal
-      );
-    }
+    // case "INCREASE_QUANTITY": {
+    //   return state.map((meal) =>
+    //     meal.id === action.meal.id ? { ...meal, quantity: meal.quantity + 1 } : meal
+    //   );
+    // }
     case "DECREASE_QUANTITY": {
       return state
         .map((meal) =>
@@ -52,9 +52,9 @@ export function CartContextProvider({ children }) {
     dispatch({ type: "SELECT_MEAL", meal });
   }
 
-  function handleIncreaseQuantity(meal) {
-    dispatch({ type: "INCREASE_QUANTITY", meal });
-  }
+  // function handleIncreaseQuantity(meal) {
+  //   dispatch({ type: "INCREASE_QUANTITY", meal });
+  // }
 
   function handleDecreaseQuantity(id) {
     dispatch({ type: "DECREASE_QUANTITY", id });
@@ -64,7 +64,7 @@ export function CartContextProvider({ children }) {
     <CartContext.Provider
       value={{
         selectedMeals,
-        handleIncreaseQuantity,
+        // handleIncreaseQuantity,
         handleDecreaseQuantity,
         handleSelectMeal,
       }}
