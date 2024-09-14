@@ -54,7 +54,7 @@ const Modal = forwardRef(function Modal(_props, modalRef) {
                 {meal.quantity}
                 <Button
                   type="button"
-                  onClick={() => handleIncreaseQuantity(meal.id)}
+                  onClick={() => handleIncreaseQuantity(meal)}
                 >
                   +
                 </Button>

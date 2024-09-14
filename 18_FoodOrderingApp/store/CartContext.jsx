@@ -27,7 +27,7 @@ function cartReducer(state, action) {
     }
     case "INCREASE_QUANTITY": {
       return state.map((meal) =>
-        meal.id === action.id ? { ...meal, quantity: meal.quantity + 1 } : meal
+        meal.id === action.meal.id ? { ...meal, quantity: meal.quantity + 1 } : meal
       );
     }
     case "DECREASE_QUANTITY": {
@@ -52,8 +52,8 @@ export function CartContextProvider({ children }) {
     dispatch({ type: "SELECT_MEAL", meal });
   }
 
-  function handleIncreaseQuantity(id) {
-    dispatch({ type: "INCREASE_QUANTITY", id });
+  function handleIncreaseQuantity(meal) {
+    dispatch({ type: "INCREASE_QUANTITY", meal });
   }
 
   function handleDecreaseQuantity(id) {
