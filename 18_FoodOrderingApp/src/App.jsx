@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "./Header";
 import Meals from "./Meals";
 import { CartContextProvider } from "../store/CartContext";
+import { UserProgressProvider } from "../store/UserProgressContext";
 
 function App() {
   const [availableMeals, setAvailableMeals] = useState([]);
@@ -56,10 +57,12 @@ function App() {
 
   return (
     <>
-      <CartContextProvider>
-        <Header />
-        <Meals availableMeals={availableMeals} />
-      </CartContextProvider>
+      <UserProgressProvider>
+        <CartContextProvider>
+          <Header />
+          <Meals availableMeals={availableMeals} />
+        </CartContextProvider>
+      </UserProgressProvider>
     </>
   );
 }

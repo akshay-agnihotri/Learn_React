@@ -1,15 +1,17 @@
 // import React from 'react'
-import { useCallback, useContext, useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 import logo from "./assets/logo.jpg";
 // import Modal from "./Modal";
 import Button from "./UI/Button";
 import { CartContext } from "../store/CartContext";
 import Cart from "./Cart";
+import UserProgressContext from "../store/UserProgressContext";
 
 function Header() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   // const modalRef = useRef();
   const { selectedMeals } = useContext(CartContext);
+  const userProgressCtx = useContext(UserProgressContext);
 
   const totalCartQuantity = useMemo(() => {
     return selectedMeals.reduce(
@@ -24,24 +26,28 @@ function Header() {
   //   setIsModalOpen(true);
   // }
 
-  const handleShowModal = useCallback(() => {
-    setIsModalOpen(true);
-  }, []);
+  // const handleShowModal = useCallback(() => {
+  //   setIsModalOpen(true);
+  // }, []);
 
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-  }, []);
+  // const handleCloseModal = useCallback(() => {
+  //   setIsModalOpen(false);
+  // }, []);
+
+  function handleShowCart() {
+    userProgressCtx.showCart();
+  }
 
   return (
     <>
       {/* <Modal ref={modalRef} /> */}
-      <Cart isOpen={isModalOpen} onClose={handleCloseModal} />
+      <Cart isOpen={userProgressCtx.progress === "cart"} />
       <header id="main-header">
         <div id="title">
           <img src={logo} alt="A restaurant" />
           <h1>reactfood</h1>
         </div>
-        <Button onClick={handleShowModal} classes="text-button">
+        <Button onClick={handleShowCart} classes="text-button">
           Cart({totalCartQuantity})
         </Button>
       </header>
