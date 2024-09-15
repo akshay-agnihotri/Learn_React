@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import PropTypes from "prop-types"; // Import PropTypes
+import { createPortal } from "react-dom";
 
 function Modal2({ children, open, className = "" }) {
   const modalRef = useRef();
@@ -21,10 +22,11 @@ function Modal2({ children, open, className = "" }) {
     return () => modal.close();
   }, [open]);
 
-  return (
+  return createPortal(
     <dialog ref={modalRef} className={`modal ${className}`}>
       {children}
-    </dialog>
+    </dialog>,
+    document.querySelector("#modal")
   );
 }
 

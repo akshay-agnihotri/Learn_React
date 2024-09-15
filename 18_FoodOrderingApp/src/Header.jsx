@@ -4,7 +4,6 @@ import logo from "./assets/logo.jpg";
 // import Modal from "./Modal";
 import Button from "./UI/Button";
 import { CartContext } from "../store/CartContext";
-import Cart from "./Cart";
 import UserProgressContext from "../store/UserProgressContext";
 
 function Header() {
@@ -41,7 +40,6 @@ function Header() {
   return (
     <>
       {/* <Modal ref={modalRef} /> */}
-      <Cart isOpen={userProgressCtx.progress === "cart"} />
       <header id="main-header">
         <div id="title">
           <img src={logo} alt="A restaurant" />

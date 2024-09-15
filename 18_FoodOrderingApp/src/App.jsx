@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Header from "./Header";
 import Meals from "./Meals";
 import { CartContextProvider } from "../store/CartContext";
+import Checkout from "./Checkout";
+import Cart from "./Cart";
 import { UserProgressProvider } from "../store/UserProgressContext";
 
 function App() {
@@ -61,6 +63,8 @@ function App() {
         <CartContextProvider>
           <Header />
           <Meals availableMeals={availableMeals} />
+          <Checkout />
+          <Cart />
         </CartContextProvider>
       </UserProgressProvider>
     </>

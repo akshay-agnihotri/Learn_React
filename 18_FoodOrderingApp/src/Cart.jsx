@@ -3,24 +3,22 @@ import { useContext } from "react";
 import Modal2 from "./Modal2";
 import { currencyFormatter } from "./util/formatting";
 import Button from "./UI/Button";
-import PropTypes from "prop-types";
 import UserProgressContext from "../store/UserProgressContext";
 
-function Cart({ isOpen }) {
+function Cart() {
   // Add onClose prop
   const { selectedMeals, handleDecreaseQuantity, handleSelectMeal } =
     useContext(CartContext);
 
   const userProgressCtx = useContext(UserProgressContext);
 
-  function handleGoToCheckOut(){
+  function handleGoToCheckOut() {
     userProgressCtx.showCheckout();
   }
 
-  function handleCloseCart(){
+  function handleCloseCart() {
     userProgressCtx.hideCart();
   }
-
 
   // const [goToCheckout, setGoToCheckout] = useState(false);
 
@@ -31,7 +29,10 @@ function Cart({ isOpen }) {
   );
 
   return (
-    <Modal2 className="cart" open={isOpen}>
+    <Modal2
+      className="cart"
+      open={userProgressCtx.progress === "cart"}
+    >
       <h2>Your Cart</h2>
       <ul>
         {selectedMeals.map((meal) => (
@@ -64,21 +65,14 @@ function Cart({ isOpen }) {
           {/* Close button handler */}
           Close
         </button>
-        <button
-          className="button"
-          type="button"
-          onClick={handleGoToCheckOut}
-        >
-          Go to Checkout
-        </button>
+        {selectedMeals.length > 0 && (
+          <button className="button" type="button" onClick={handleGoToCheckOut}>
+            Go to Checkout
+          </button>
+        )}
       </div>
     </Modal2>
   );
 }
-
-// PropTypes validation
-Cart.propTypes = {
-  isOpen: PropTypes.bool.isRequired, // isOpen must be a boolean and is required
-};
 
 export default Cart;
