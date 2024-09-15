@@ -32,6 +32,7 @@ function Cart() {
     <Modal2
       className="cart"
       open={userProgressCtx.progress === "cart"}
+      onClose={userProgressCtx.progress === "checkout" ? null : handleCloseCart}
     >
       <h2>Your Cart</h2>
       <ul>

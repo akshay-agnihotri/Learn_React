@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import PropTypes from "prop-types"; // Import PropTypes
 import { createPortal } from "react-dom";
 
-function Modal2({ children, open, className = "" }) {
+function Modal2({ onClose, children, open, className = "" }) {
   const modalRef = useRef();
 
   // useEffect(() => {
@@ -23,7 +23,7 @@ function Modal2({ children, open, className = "" }) {
   }, [open]);
 
   return createPortal(
-    <dialog ref={modalRef} className={`modal ${className}`}>
+    <dialog ref={modalRef} className={`modal ${className}`} onClose={onClose}>
       {children}
     </dialog>,
     document.querySelector("#modal")
