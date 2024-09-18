@@ -9,11 +9,11 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 //     "type": "module"
 //   }
 
-const initialState = { counter: 0, showCounter: true };
+const initialCounterState = { counter: 0, showCounter: true };
 
 const counterSlice = createSlice({
   name: "counter",
-  initialState,
+  initialState: initialCounterState,
   reducers: {
     increment(state, action) {
       // return {
@@ -35,6 +35,21 @@ const counterSlice = createSlice({
       //   showCounter: !state.showCounter,
       // };
       state.showCounter = !state.showCounter;
+    },
+  },
+});
+
+const initialAuthState = { isAuthenticated: false };
+
+const authSlice = createSlice({
+  name: "authentication",
+  initialState: initialAuthState,
+  reducers: {
+    login(state) {
+      state.isAuthenticated = true;
+    },
+    logout(state) {
+      state.isAuthenticated = false;
     },
   },
 });
@@ -63,9 +78,10 @@ const counterSlice = createSlice({
 // const store = createStore(counterReducer);
 
 const store = configureStore({
-  reducer: { counter: counterSlice.reducer },
+  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
 });
 
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 
 export default store;
