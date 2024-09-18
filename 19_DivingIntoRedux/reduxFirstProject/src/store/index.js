@@ -1,5 +1,8 @@
 // const redux = require("redux");
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import counterSliceReducer from "./counter-slice.js";
+import authSliceReducer from "./auth-slice.js";
+
 // import { createStore } from "redux"; //to do this we use to either change our file name to .mjs
 //or we can add type:"module" in package.json() like this--
 // {
@@ -8,51 +11,6 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 //     "main": "index.js",
 //     "type": "module"
 //   }
-
-const initialCounterState = { counter: 0, showCounter: true };
-
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: initialCounterState,
-  reducers: {
-    increment(state, action) {
-      // return {
-      //   counter: state.counter + action.payload,
-      //   showCounter: state.showCounter,
-      // };
-      state.counter = state.counter + action.payload;
-    },
-    decrement(state, action) {
-      // return {
-      //   counter: state.counter + action.payload,
-      //   showCounter: state.showCounter,
-      // };
-      state.counter = state.counter - action.payload;
-    },
-    toggleCounter(state) {
-      // return {
-      //   counter: state.showCounter,
-      //   showCounter: !state.showCounter,
-      // };
-      state.showCounter = !state.showCounter;
-    },
-  },
-});
-
-const initialAuthState = { isAuthenticated: false };
-
-const authSlice = createSlice({
-  name: "authentication",
-  initialState: initialAuthState,
-  reducers: {
-    login(state) {
-      state.isAuthenticated = true;
-    },
-    logout(state) {
-      state.isAuthenticated = false;
-    },
-  },
-});
 
 // const counterReducer = (state = initialState, action) => {
 //   if (action.type === "increment") {
@@ -78,10 +36,10 @@ const authSlice = createSlice({
 // const store = createStore(counterReducer);
 
 const store = configureStore({
-  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+  reducer: { counter: counterSliceReducer, auth: authSliceReducer },
 });
 
-export const counterActions = counterSlice.actions;
-export const authActions = authSlice.actions;
+
+
 
 export default store;
