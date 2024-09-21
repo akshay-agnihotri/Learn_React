@@ -10,7 +10,7 @@ function App() {
     <Layout>
       {isCartVisible && <Cart />}
       {!isCartVisible && <Products />}
-    </Layout>
+    </Layout> 
   );
 }
 
