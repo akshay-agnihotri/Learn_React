@@ -4,8 +4,8 @@ import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import { useEffect } from "react";
 import Notification from "./components/UI/Notification";
-import { sendCartData } from "./store/cart-slice";
-let isInitial = true;
+import { fetchData, sendCartData } from "./store/cart-action";
+let count = 0;
 function App() {
   const isCartVisible = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
@@ -13,11 +13,16 @@ function App() {
   const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
-    if (isInitial) {
-      isInitial = false;
+    if (count === 0) {
+      dispatch(fetchData()); //here we are changing the cart so it will trigger to render our component again..
+      count++;
       return;
     }
-    dispatch(sendCartData(cart))
+    if (count === 1) {
+      count++;
+      return;
+    }
+    dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
   return (
