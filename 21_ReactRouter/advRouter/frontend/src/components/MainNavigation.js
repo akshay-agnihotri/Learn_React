@@ -10,6 +10,7 @@ function MainNavigation() {
             <NavLink
               to="/"
               className={({ isActive }) => (isActive ? classes.active : "")}
+              end
             >
               Home
             </NavLink>

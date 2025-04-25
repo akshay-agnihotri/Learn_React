@@ -1,15 +1,30 @@
 import React from "react";
-// Output the ID of the selected event on the EventDetailPage
-import { Link, useParams } from "react-router-dom";
+import EventItem from "../components/EventItem";
+import { json, useRouteLoaderData } from "react-router-dom";
+
+export const eventDetailLoader = async ({ request, params }) => {
+  const id = params.eventId;
+  const response = await fetch(`http://localhost:8080/events/${id}`);
+
+  if (!response.ok) {
+    throw json(
+      { message: "Could not fetch event details" },
+      {
+        status: 500,
+      }
+    );
+  } else {
+    return response;
+  }
+};
 
 function EventDetailPage() {
-  const eventId = useParams().id;
+  const event = useRouteLoaderData("event-detail").event;
+
   return (
-    <div>
-      <h1>EventDetailPage</h1>
-      <p>Event ID:{eventId}</p>
-      <Link to={`/events/${eventId}/edit`}>Edit Event</Link>
-    </div>
+    <>
+      <EventItem event={event} />
+    </>
   );
 }
 

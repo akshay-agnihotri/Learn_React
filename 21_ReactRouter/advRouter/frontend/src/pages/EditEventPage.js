@@ -1,12 +1,38 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import EventForm from "../components/EventForm";
+import { json, redirect, useRouteLoaderData } from "react-router-dom";
+
+export const editEventAction = async ({ request, params }) => {
+  const data = await request.formData();
+
+  const eventData = {
+    title: data.get("title"),
+    description: data.get("description"),
+    date: data.get("date"),
+    image: data.get("image"),
+  };
+
+  const response = await fetch(`http://localhost:8080/events/${params.eventId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(eventData),
+  });
+  
+
+  if (!response.ok) {
+    throw new json({ message: "could not save data" }, { status: 500 });
+  }
+
+  return redirect("/events");
+};
 
 function EditEventPage() {
-  const id = useParams().id;
+  const event = useRouteLoaderData("event-detail").event;
+
   return (
-    <div>
-      <h1>EditEvent : {id}</h1>
-    </div>
+    <>
+      <EventForm event={event} method="PATCH" />
+    </>
   );
 }
 

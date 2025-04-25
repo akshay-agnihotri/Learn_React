@@ -20,18 +20,20 @@
 // 7. Output the ID of the selected event on the EventDetailPage
 // BONUS: Add another (nested) layout route that adds the <EventNavigation> component above all /events... page components
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import EventsPage, { loader as eventsLoader } from "./pages/EventsPage";
+import EventsPage, { eventsLoader } from "./pages/EventsPage";
 import HomePage from "./pages/HomePage";
-import EventDetailPage from "./pages/EventDetailPage";
+import EventDetailPage, { eventDetailLoader } from "./pages/EventDetailPage";
 import RootLayout from "./pages/RootLayout";
-import NewEventPage from "./pages/NewEventPage";
-import EditEventPage from "./pages/EditEventPage";
+import NewEventPage, { newEventAction } from "./pages/NewEventPage";
+import EditEventPage, { editEventAction } from "./pages/EditEventPage";
 import EventRootLayout from "./pages/EventRootLayout";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -44,19 +46,25 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <EventsPage />,
-            loader: eventsLoader, 
+            loader: eventsLoader,
           },
           {
             path: "new",
             element: <NewEventPage />,
+            action: newEventAction,
           },
           {
             path: ":eventId",
-            element: <EventDetailPage />,
-          },
-          {
-            path: ":eventId/edit",
-            element: <EditEventPage />,
+            loader: eventDetailLoader,
+            id: "event-detail",
+            children: [
+              { index: true, element: <EventDetailPage /> },
+              {
+                path: "edit",
+                element: <EditEventPage />,
+                action:editEventAction,
+              },
+            ],
           },
         ],
       },
