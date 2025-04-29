@@ -15,7 +15,7 @@ export async function authAction({ request }) {
     password: data.get("password"),
   };
 
-  const response = fetch("http://localhost:8080/" + mode, {
+  const response = await fetch("http://localhost:8080/" + mode, {
     method: "POST",
     headers: {
       "Content-type": "application/json",
